@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Tracking</title>
+    <meta charset="utf-8">
+</head>
+<body>
+<script>
+// Obtener parámetros de la URL
+const params = new URLSearchParams(window.location.search);
+const emailId = params.get('email_id');
+
+if (emailId) {
+    // Enviar datos a Microsoft Forms usando tus Question IDs reales
+    const payload = {
+        "startDate": new Date().toISOString(),
+        "submitDate": new Date().toISOString(),
+        "answers": JSON.stringify([
+            {"questionId": "r4919357d234f4b028882b429956184a0", "answer1": emailId},
+            {"questionId": "r9655b868b5d84c87b124ddf446317853", "answer1": "Open"},
+            {"questionId": "r0019dad38b3e49188987bb79bfc06467", "answer1": navigator.userAgent}
+        ]),
+        "emailReceiptConsent": false
+    };
+    
+    // Enviar a Microsoft Forms (sin mostrar al usuario)
+    fetch('https://forms.office.com/formapi/api/v1.0/forms/dGla839g1EeC1_8x19xTpZfKHpf9wDNIqQQsoVloP0ZUQTQwTFI2MlNaN0xRR0xHTktTUjdKUDI3Uy4u/responses', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        mode: 'no-cors',
+        body: JSON.stringify(payload)
+    }).catch(err => {
+        // Error silencioso - no afecta al usuario
+        console.log('Tracking error:', err);
+    });
+}
+
+// Mostrar pixel invisible (1x1 transparent)
+document.body.innerHTML = '<img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" width="1" height="1" style="display:none;">';
+</script>
+</body>
+</html>
