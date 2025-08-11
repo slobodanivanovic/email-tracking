@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+    <meta charset="utf-8">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+            background: #f5f5f5; 
+        }
+        .loading { 
+            color: #0078d4; 
+            font-size: 18px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <p>Redirecting...</p>
+        <p style="font-size: 14px; color: #666;">Please wait a moment</p>
+    </div>
+
+<script>
+// Obtener parámetros de la URL
+const params = new URLSearchParams(window.location.search);
+const emailId = params.get('email_id');
+const redirect = params.get('redirect');
+
+if (emailId) {
+    // Registrar click en Microsoft Forms usando formato correcto
+    const formData = new URLSearchParams();
+    formData.append('r4919357d234f4b028882b429956184a0', emailId);              // EmailID
+    formData.append('r9655b868b5d84c87b124ddf446317853', 'Click');             // Action
+    formData.append('r0019dad38b3e49188987bb79bfc06467', navigator.userAgent);  // UserAgent
+    formData.append('r77bb5fc9af63429dbed227e29037686a', redirect || '');      // RedirectURL
+    
+    // Enviar a Microsoft Forms
+    fetch('https://forms.office.com/formapi/api/v1.0/forms/dGla839g1EeC1_8x19xTpZfKHpf9wDNIqQQsoVloP0ZUQTQwTFI2MlNaN0xRR0xHTktTUjdKUDI3Uy4u/responses', {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+    }).catch(err => {
+        // Error silencioso - no afecta al usuario
+        console.log('Tracking error:', err);
+    });
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+    }).catch(err => {
+        // Error silencioso
+        console.log('Tracking error:', err);
+    });
+}
+
+// Redirigir después de registrar el click
+setTimeout(() => {
+    if (redirect) {
+        window.location.href = redirect;
+    } else {
+        // Fallback si no hay URL de redirect
+        window.location.href = 'https://novartis.com';
+    }
+}, 800); // 800ms delay para asegurar que se registre el click
+</script>
+</body>
+</html>
