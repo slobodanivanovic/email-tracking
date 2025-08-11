@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Tracking System</title>
+    <meta charset="utf-8">
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 50px; 
+            background: #f5f5f5; 
+        }
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
+        h1 { color: #333; }
+        .file-links { margin: 20px 0; }
+        .file-links a { 
+            display: block; 
+            margin: 10px 0; 
+            padding: 10px; 
+            background: #0078d4; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+        }
+        .file-links a:hover { background: #106ebe; }
+        .test-links { 
+            margin: 30px 0; 
+            padding: 20px; 
+            background: #fff3cd; 
+            border-radius: 5px; 
+        }
+        .test-links h3 { color: #856404; }
+        .test-links a { color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Email Tracking System</h1>
+        <p>System files for email open and click tracking.</p>
+        
+        <div class="file-links">
+            <h3>📁 Files:</h3>
+            <a href="pixel.html">pixel.html - Open tracking</a>
+            <a href="click.html">click.html - Click tracking</a>
+        </div>
+        
+        <div class="test-links">
+            <h3>🧪 Test Links:</h3>
+            <p><strong>Test pixel tracking:</strong><br>
+            <a href="pixel.html?email_id=TEST-PIXEL-123" target="_blank">pixel.html?email_id=TEST-PIXEL-123</a></p>
+            
+            <p><strong>Test click tracking:</strong><br>
+            <a href="click.html?email_id=TEST-CLICK-456&redirect=https://google.com" target="_blank">click.html?email_id=TEST-CLICK-456&redirect=https://google.com</a></p>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 12px; color: #666;">
+            <p>📊 <strong>How to use:</strong></p>
+            <ul>
+                <li>Use pixel.html in email img src for open tracking</li>
+                <li>Use click.html in email links for click tracking</li>
+                <li>Include email_id parameter for identification</li>
+                <li>Include redirect parameter in click.html for destination URL</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
