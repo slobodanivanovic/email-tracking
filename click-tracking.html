@@ -30,6 +30,7 @@
             0% { transform: rotate(0deg); } 
             100% { transform: rotate(360deg); } 
         }
+        .debug { font-size: 12px; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -37,22 +38,46 @@
         <h2>🚀 Opening PowerBI Dashboard</h2>
         <div class="spinner"></div>
         <p>Tracking click and redirecting...</p>
+        <div id="debug" class="debug"></div>
     </div>
     
     <script>
+        // DEBUG: Show what we're getting
+        const debugDiv = document.getElementById('debug');
+        
         // Get parameters from URL
         const urlParams = new URLSearchParams(window.location.search);
-        const emailId = urlParams.get('emailId') || 'unknown';
+        const emailId = urlParams.get('emailId') || 'test-click';
+        
+        // DEBUG: Show parameters
+        debugDiv.innerHTML = `
+            <p>URL: ${window.location.href}</p>
+            <p>EmailId: ${emailId}</p>
+            <p>Search: ${window.location.search}</p>
+        `;
+        
+        // Construct tracking URL
+        const trackingUrl = `https://script.google.com/macros/s/AKfycbxvCw-by7da8QEIH71GwEVFB_I3IsZGdtBv4jWSnIXTBf3lezZarswzbIxyUsf-tYRLUw/exec?emailId=${emailId}&action=click&userAgent=github&t=${Date.now()}`;
+        
+        // DEBUG: Show tracking URL
+        console.log('Tracking URL:', trackingUrl);
+        debugDiv.innerHTML += `<p>Tracking URL: ${trackingUrl}</p>`;
         
         // 1. TRACK FIRST
-        fetch(`https://script.google.com/macros/s/AKfycbxvCw-by7da8QEIH71GwEVFB_I3IsZGdtBv4jWSnIXTBf3lezZarswzbIxyUsf-tYRLUw/exec?emailId=${emailId}&action=click&userAgent=web&t=${Date.now()}`, {
+        fetch(trackingUrl, {
             mode: 'no-cors'
+        }).then(() => {
+            console.log('Tracking sent successfully');
+            debugDiv.innerHTML += '<p>✅ Tracking sent!</p>';
+        }).catch(error => {
+            console.error('Tracking error:', error);
+            debugDiv.innerHTML += `<p>❌ Tracking error: ${error}</p>`;
         });
         
-        // 2. REDIRECT AFTER TRACKING
+        // 2. REDIRECT AFTER TRACKING (increased delay for debugging)
         setTimeout(() => {
             window.location.href = 'https://app.powerbi.com/groups/2d391581-963f-4619-80cb-e8cfedf36883/reports/7f8084cc-007d-4d1a-9cf2-786db2f02a14/a57a427c89a07092a28d?experience=power-bi';
-        }, 1000);
+        }, 5000); // 5 seconds to see debug info
     </script>
 </body>
 </html>
