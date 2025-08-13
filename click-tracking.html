@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Opening Dashboard...</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            padding: 50px; 
+            background: linear-gradient(135deg, #065fa9, #4a90e2); 
+            color: white; 
+        }
+        .container { 
+            background: rgba(255,255,255,0.1); 
+            padding: 30px; 
+            border-radius: 15px; 
+            max-width: 400px; 
+            margin: 0 auto; 
+        }
+        .spinner { 
+            border: 3px solid rgba(255,255,255,0.3); 
+            border-top: 3px solid white; 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+            margin: 20px auto; 
+        }
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🚀 Opening PowerBI Dashboard</h2>
+        <div class="spinner"></div>
+        <p>Tracking click and redirecting...</p>
+    </div>
+    
+    <script>
+        // Get parameters from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const emailId = urlParams.get('emailId') || 'unknown';
+        
+        // 1. TRACK FIRST
+        fetch(`https://script.google.com/macros/s/AKfycbxvCw-by7da8QEIH71GwEVFB_I3IsZGdtBv4jWSnIXTBf3lezZarswzbIxyUsf-tYRLUw/exec?emailId=${emailId}&action=click&userAgent=web&t=${Date.now()}`, {
+            mode: 'no-cors'
+        });
+        
+        // 2. REDIRECT AFTER TRACKING
+        setTimeout(() => {
+            window.location.href = 'https://app.powerbi.com/groups/2d391581-963f-4619-80cb-e8cfedf36883/reports/7f8084cc-007d-4d1a-9cf2-786db2f02a14/a57a427c89a07092a28d?experience=power-bi';
+        }, 1000);
+    </script>
+</body>
+</html>
