@@ -95,8 +95,6 @@
              alt="Novartis" 
              class="logo">
         
-        <h2>🚀 Cargando Dashboard</h2>
-        
         <div class="spinner"></div>
         
         <p>Estamos preparando tu dashboard de PowerBI...</p>
@@ -146,8 +144,7 @@
         const userAgent = `${deviceType}-${emailClient}`; // e.g., "mobile-outlook" or "desktop-gmail"
         
         // Construct tracking URL
-        const trackingUrl = `https://script.google.com/macros/s/AKfycbxvCw-by7da8QEIH71GwEVFB_I3IsZGdtBv4jWSnIXTBf3lezZarswzbIxyUsf-tYRLUw/exec?emailId=${emailId}&action=click&userAgent=${userAgent}&manager=${manager}&country=${country}&t=${Date.now()}`;
-        
+        const trackingUrl = `https://script.google.com/macros/s/AKfycby5x7FBLzwE9vd-nO49OuCl3OBT_oN_fliAtAb76yaH1_WHZjwzZZvKzjQfAmU0RjZQDw/exec?emailId=${emailId}&action=click&userAgent=${userAgent}&manager=${manager}&country=${country}&t=${Date.now()}`;
         // 1. TRACK CLICK
         fetch(trackingUrl, {
             mode: 'no-cors'
