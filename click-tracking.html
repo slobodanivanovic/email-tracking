@@ -95,7 +95,7 @@
              alt="Novartis" 
              class="logo">
         
-
+        <h2>🚀 Cargando Dashboard</h2>
         
         <div class="spinner"></div>
         
@@ -109,25 +109,56 @@
     </div>
     
     <script>
+        // DEVICE DETECTION
+        function getDeviceType() {
+            const userAgent = navigator.userAgent;
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+            const isTablet = /iPad|Android(?!.*Mobile)/i.test(userAgent);
+            
+            if (isMobile && !isTablet) {
+                return 'mobile';
+            } else if (isTablet) {
+                return 'tablet';
+            } else {
+                return 'desktop';
+            }
+        }
+
+        // EMAIL CLIENT DETECTION
+        function getEmailClient() {
+            const userAgent = navigator.userAgent;
+            if (userAgent.includes('Outlook')) return 'outlook';
+            if (userAgent.includes('Gmail')) return 'gmail';
+            if (userAgent.includes('Apple Mail') || userAgent.includes('Mail/')) return 'apple-mail';
+            if (userAgent.includes('Thunderbird')) return 'thunderbird';
+            return 'web-browser';
+        }
+
         // Get parameters from URL
         const urlParams = new URLSearchParams(window.location.search);
         const emailId = urlParams.get('emailId') || 'test-click';
+        const manager = urlParams.get('manager') || 'unknown';
+        const country = urlParams.get('country') || 'unknown';
+        
+        // Get device and client info
+        const deviceType = getDeviceType();
+        const emailClient = getEmailClient();
+        const userAgent = `${deviceType}-${emailClient}`; // e.g., "mobile-outlook" or "desktop-gmail"
         
         // Construct tracking URL
-        const trackingUrl = `https://script.google.com/macros/s/AKfycbxvCw-by7da8QEIH71GwEVFB_I3IsZGdtBv4jWSnIXTBf3lezZarswzbIxyUsf-tYRLUw/exec?emailId=${emailId}&action=click&userAgent=github&t=${Date.now()}`;
+        const trackingUrl = `https://script.google.com/macros/s/AKfycbxvCw-by7da8QEIH71GwEVFB_I3IsZGdtBv4jWSnIXTBf3lezZarswzbIxyUsf-tYRLUw/exec?emailId=${emailId}&action=click&userAgent=${userAgent}&manager=${manager}&country=${country}&t=${Date.now()}`;
         
-        // 1. TRACK FIRST (silent)
+        // 1. TRACK CLICK
         fetch(trackingUrl, {
             mode: 'no-cors'
         }).catch(error => {
-            // Silent error handling
             console.log('Tracking sent');
         });
         
-        // 2. REDIRECT AFTER TRACKING
+        // 2. REDIRECT TO POWERBI
         setTimeout(() => {
             window.location.href = 'https://app.powerbi.com/groups/2d391581-963f-4619-80cb-e8cfedf36883/reports/7f8084cc-007d-4d1a-9cf2-786db2f02a14/a57a427c89a07092a28d?experience=power-bi';
-        }, 2500); // 2.5 seconds - enough time for tracking + nice UX
+        }, 2500);
     </script>
 </body>
 </html>
